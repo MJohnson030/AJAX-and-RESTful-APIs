@@ -1,7 +1,7 @@
 /*  Exercise 01_11_01
 
     Whole Spectrum Energy Solutions
-    Author: 
+    Author: Millione Johnson
     Date:   
 
     Filename: script.js
@@ -50,15 +50,30 @@ function getWeather(evt) {
    if(!httpRequest) httpRequest = getRequestObject();
    
    httpRequest.abort();
-   httpRequest.open("get", "solar.php?" + "lat=" + latitude + "&lng" + longitude, true);
-   httpRequest.send(null);
+httpRequest.open("get", "solar.php?" + "lat=" + latitude + "&lng=" + longitude, true);
+httpRequest.send(null);
 }
 
 function fillWeather(){
       if(httpRequest.readyState === 4 && httpRequest.status === 200) {
          weatherReport = JSON.parse(httpRequest.responseText);
          httpRequest.onreadystatechange = fillWeather;
-         
+       
+         if (httpRequest.readyState === 4 
+            && httpRequest.status === 200) {
+            weatherReport = JSON.parse(httpRequest.responseText);
+            var days = ["Sunday","Monday","Tuesday",
+                "Wednesday","Thursday","Friday","Saturday"];
+            var dateValue = new 
+                Date(weatherReport.daily.data[0].time);
+            var dayOfWeek = dateValue.getDay();
+            var rows = document.querySelectorAll
+                ("section.week table tbody tr");
+            document.querySelector("section.week table caption").
+                innerHTML = selectedCity;
+                document.querySelector("section.week table caption").style.display = "block";
+            document.querySelector("section.week table").style.display = "inline-block";
+          }
       }
 }
 
